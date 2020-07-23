@@ -24,17 +24,6 @@ class LinkedList:
             self.tail = newnode  # FFS, was trying self.head = Node(value) and self.tail = Node(value),
                                  # making two separate node instances
 
-    def __str__(self):
-        listy = []
-        if self.head:
-            currentnode = self.head
-            while 1 != 0:
-                listy.append(currentnode.value)
-                if currentnode != self.tail:
-                    currentnode = currentnode.nextnode
-                else:
-                    return str(listy)
-
     def remove_head(self):
         if not self.head:
             return None
@@ -49,33 +38,46 @@ class LinkedList:
     def remove_tail(self):
         if not self.head:
             return None
+        rv = self.tail.value
+        if self.head == self.tail:
+            self.head = None
+            return rv
         currentnode = self.head
-        while 1 != 0:
-            if currentnode.nextnode == self.tail:
-                rv = currentnode.nextnode.value
-                currentnode.nextnode = None
-                return rv
+        while currentnode.nextnode is not self.tail:
+            currentnode = currentnode.nextnode
+        self.tail = currentnode
+        currentnode.nextnode = None
+        return rv
+
+    def __str__(self):
+        listy = []
+        if self.head:
+            currentnode = self.head
+            while currentnode is not self.tail:
+                listy.append(currentnode.value)
+                currentnode = currentnode.nextnode
+            listy.append(currentnode.value)
+        return str(listy)
 
     def __len__(self):
         length = 0
         if self.head:
             currentnode = self.head
-            while 1 != 0:
+            while currentnode is not self.tail:
                 length += 1
-                if currentnode == self.tail:
-                    break
+                currentnode = currentnode.nextnode
+            length += 1
         return length
 
     def contains(self, value):
         if self.head:
             currentnode = self.head
-            contained = False
-            while not contained:
+            while currentnode is not self.tail:
                 if currentnode.value == value:
                     return True
-                if currentnode == self.tail:
-                    return False
                 currentnode = currentnode.nextnode
+            if currentnode.value == value:
+                return True
         return False
 
     def get_max(self):
@@ -98,5 +100,23 @@ print(ll)
 ll.add_to_tail(2)
 ll.add_to_tail(3)
 ll.add_to_tail(4)
+ll.add_to_tail(5)
 print(ll)
+print("length: " + str(len(ll)))
 print(ll.contains(3))
+
+ll.remove_tail()
+print(ll)
+print(ll.head.value)
+print(ll.tail.value)
+ll.remove_head()
+print(ll)
+print(ll.head.value)
+print(ll.tail.value)
+ll.remove_tail()
+ll.remove_tail()
+print(ll.head.value)
+print(ll.tail.value)
+ll.remove_tail()
+
+print(ll)
