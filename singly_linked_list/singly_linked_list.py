@@ -93,30 +93,10 @@ class LinkedList:
                 currentnode = currentnode.nextnode
         return max
 
-
 ll = LinkedList()
-ll.add_to_tail(1)
-print(ll)
-ll.add_to_tail(2)
-ll.add_to_tail(3)
-ll.add_to_tail(4)
-ll.add_to_tail(5)
-print(ll)
-print("length: " + str(len(ll)))
-print(ll.contains(3))
-
-ll.remove_tail()
-print(ll)
-print(ll.head.value)
-print(ll.tail.value)
-ll.remove_head()
-print(ll)
-print(ll.head.value)
-print(ll.tail.value)
-ll.remove_tail()
-ll.remove_tail()
-print(ll.head.value)
-print(ll.tail.value)
-ll.remove_tail()
-
-print(ll)
+ll.add_to_tail(100)
+ll.add_to_tail(101)
+ll.add_to_tail(105)
+print(ll, ll.head.value, ll.tail.value)
+print("removed value: " + str(ll.remove_head()))
+print(ll, ll.head.value, ll.tail.value)
