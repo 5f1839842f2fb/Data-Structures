@@ -1,11 +1,11 @@
 
 class Node:
-    def __init__(self, value, nextnode = None):
+    def __init__(self, value, next = None):
         self.value = value
-        self.nextnode = nextnode
+        self.next = next
 
     def backlink(self, previousnode):
-        previousnode.nextnode = self
+        previousnode.next = self
 
 
 class LinkedList:
@@ -15,14 +15,13 @@ class LinkedList:
 
     def add_to_tail(self, value):
         if self.head:
-            self.tail.nextnode = Node(value)
-            self.tail = self.tail.nextnode
+            self.tail.next = Node(value)
+            self.tail = self.tail.next
         else:
             newnode = Node(value)
             self.head = newnode
-            self.head.nextnode = newnode
-            self.tail = newnode  # FFS, was trying self.head = Node(value) and self.tail = Node(value),
-                                 # making two separate node instances
+            self.head.next = newnode
+            self.tail = newnode
 
     def remove_head(self):
         if not self.head:
@@ -32,7 +31,7 @@ class LinkedList:
             self.head = None
             self.tail = None
         else:
-            self.head = self.head.nextnode
+            self.head = self.head.next
         return rv
 
     def remove_tail(self):
@@ -43,10 +42,10 @@ class LinkedList:
             self.head = None
             return rv
         currentnode = self.head
-        while currentnode.nextnode is not self.tail:
-            currentnode = currentnode.nextnode
+        while currentnode.next is not self.tail:
+            currentnode = currentnode.next
         self.tail = currentnode
-        currentnode.nextnode = None
+        currentnode.next = None
         return rv
 
     def __str__(self):
@@ -55,7 +54,7 @@ class LinkedList:
             currentnode = self.head
             while currentnode is not self.tail:
                 listy.append(currentnode.value)
-                currentnode = currentnode.nextnode
+                currentnode = currentnode.next
             listy.append(currentnode.value)
         return str(listy)
 
@@ -65,7 +64,7 @@ class LinkedList:
             currentnode = self.head
             while currentnode is not self.tail:
                 length += 1
-                currentnode = currentnode.nextnode
+                currentnode = currentnode.next
             length += 1
         return length
 
@@ -75,7 +74,7 @@ class LinkedList:
             while currentnode is not self.tail:
                 if currentnode.value == value:
                     return True
-                currentnode = currentnode.nextnode
+                currentnode = currentnode.next
             if currentnode.value == value:
                 return True
         return False
@@ -90,13 +89,6 @@ class LinkedList:
                     max = currentnode.value
                 if currentnode == self.tail:
                     return max
-                currentnode = currentnode.nextnode
+                currentnode = currentnode.next
         return max
 
-ll = LinkedList()
-ll.add_to_tail(100)
-ll.add_to_tail(101)
-ll.add_to_tail(105)
-print(ll, ll.head.value, ll.tail.value)
-print("removed value: " + str(ll.remove_head()))
-print(ll, ll.head.value, ll.tail.value)

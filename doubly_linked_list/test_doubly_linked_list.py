@@ -26,6 +26,7 @@ class DoublyLinkedListTests(unittest.TestCase):
         self.assertEqual(len(self.dll), 0)
 
     def test_list_remove_from_head(self):
+        print(self.dll, self.dll.head.value, self.dll.tail.value, len(self.dll))
         self.dll.remove_from_head()
         self.assertIsNone(self.dll.head)
         self.assertIsNone(self.dll.tail)
